@@ -242,23 +242,8 @@ class Sim2600Console:
         self.programFilePath = programFilePath
 
         # load ROM from file
-        of = open (programFilePath, 'rb')
-        byteStr = of.read()
-        of.close()
-
-        program = []
-        progHex = ''
-        count = 0
-        for byte in byteStr:
-            intVal = struct.unpack ('1B', byte)[0]
-            progHex += '%2.2X '%intVal
-            count += 1
-            if count == 8:
-                progHex += ' '
-            elif count == 16:
-                progHex += '\n'
-                count = 0
-            program.append (intVal)
+        with open (programFilePath, 'rb') as of:
+            byteStr = of.read()
 
         baseAddr = 0xF000
         if len(byteStr) == 8192:
@@ -266,8 +251,10 @@ class Sim2600Console:
         elif len(byteStr) == 2048:
             baseAddr = 0xF800
             print('Loading 2kb ROM starting from 0x%X'%baseAddr)
+        else:
+            assert len(byteStr) == (4<<10), f'unexpected data length: {len(byteStr)}'
 
-        self.loadProgramBytes(program, baseAddr, False)
+        self.loadProgramBytes(byteStr, baseAddr, False)
 
     def updateDataBus(self):
       cpu = self.sim6507

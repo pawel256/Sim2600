@@ -159,7 +159,7 @@ class ImageOpenGL(ImageBase):
         # To set all pixels to the given RGBA color, 8 bits per component:
         # 'B' for unsigned byte
         a = array('B', self.rgbaIntToList(intRGBA) * self.getNumPixels())
-        imageStr = a.tostring()
+        imageStr = a.tobytes()
 
         glTexImage2D(GL_TEXTURE_2D,    # target
                      0,                # mipmap level
@@ -197,7 +197,7 @@ class ImageOpenGL(ImageBase):
             self.startedNewImage = True
 
         a = array('B', self.rgbaIntToList(rgbaInt))  # 'B' for unsigned byte
-        astr = a.tostring()
+        astr = a.tobytes()
 
         glBindTexture(GL_TEXTURE_2D, self.textureId)
         glTexSubImage2D(GL_TEXTURE_2D,    # target

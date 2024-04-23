@@ -101,7 +101,7 @@ class Sim6502(CircuitSimulator):
         self.setHighWN('NMI')  # no interrupt
         self.setHighWN('RDY')  # let the chip run.  Will connect to TIA with pullup
         self.recalcWireNameList(['IRQ','NMI','RES','RDY'])
-        for i in xrange(4):
+        for i in range(4):
             if i % 2:
                 self.setLowWN('CLK0')
             else:

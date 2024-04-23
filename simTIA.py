@@ -143,7 +143,7 @@ class SimTIA(CircuitSimulator):
         # least significant
 
         self.colLumToRGB8LUT = [0]*128
-        for intKey in xrange(len(col)):
+        for intKey in range(len(col)):
             colPair = col[intKey]
             start = colPair[0]
             end   = colPair[1]
@@ -152,7 +152,7 @@ class SimTIA(CircuitSimulator):
                 # result is tuple of same dim as 'start' and 'end'      
                 dif += (end[i] - startv,)
             # lumInt from 0 to 7
-            for lumInt in xrange(8):
+            for lumInt in range(8):
                 lumFrac = lumInt / 7.0
                 ctup = ()
                 for i, startv in enumerate(start):
